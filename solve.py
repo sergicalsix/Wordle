@@ -6,9 +6,10 @@ df = pd.read_csv('wordle_ans.csv',header=None)
 #print(df.head())
 ans0:list = df[0].values
 
-pos_dict = {4:'e',5:'r'}
-character_list = ['t','r','o','e']
-non_character_list = ['a','s','i','f','l','u','w']
+pos_dict = {3:'o'}
+non_pos_dict = {}
+character_list = ['o','r','t']
+non_character_list = ['a','i','s','l','f','u','e']
 #non_character_list = []
 
 def character_select(ans_candidate,character_list:list):
@@ -50,6 +51,20 @@ def character_position_select(ans_candidate,character_position_dict):
             ans_set = ans_set.intersection(set(ans_) )
     return list(ans_set)
 
+def character_position_not_select(ans_candidate,character_position_dict):
+    if len(character_position_dict.keys()) == 0:
+        return ans_candidate
+    """
+    character_postion_dict: {1:'f'}
+    """
+    ans_set = set([])
+    for k,v in character_position_dict.items():
+        ans_ = [a for a in ans_candidate if a[int(k) - 1] != v]
+        if len(ans_set) == 0:
+            ans_set = set(ans_)
+        else:
+            ans_set = ans_set.intersection(set(ans_) )
+    return list(ans_set)
 #def count_alpha(ans_candidate):
     
     
